@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
 
         //Crear un usuario de prueba
         User::factory()->create([
-            'name' => 'Pedro Perez',
-            'email' => 'test@example.com',
+            'name' => 'Damaris Ramirez',
+            'email' => 'mdamaris1902@gmail.com',
             'password' => bcrypt('12345678'),
         ]);
     }

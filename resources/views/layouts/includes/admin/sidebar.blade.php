@@ -12,9 +12,9 @@ $links = [
     ],
     [
         'name' => 'Roles y permisos',
-        'icon' => 'fa-solid fa-gauge',
+        'icon' => 'fa-solid fa-user-shield',
         'href' => route('admin.roles.index'),
-        'active' => request() ->routeIs('admin.roles.*'),
+        'active' => request()->routeIs('admin.roles.*'),
     ],
 ];
 @endphp
