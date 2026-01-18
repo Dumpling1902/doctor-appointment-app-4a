@@ -13,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -21,7 +22,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -29,7 +31,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validar los datos
+        $data = $request->validate([
+            'name' => 'required|string|min:3|max:20',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'id_number' => 'required|string|min:5|max:20|regex:/^[A-Za-z0-9\-]+$/|unique:users',
+            'phone' => 'required|digits_between:7,15',
+            'address' => 'required|string|min:3|max:255',
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        
+        $user = User::create($data); 
+
+        $user->roles()->attach($data['role_id']);
+
+        
+        session()->flash('swal', [
+            'icon'  => 'success',
+            'title' => 'Usuario creado correctamente',
+            'text'  => 'El usuario ha sido registrado exitosamente'
+        ]);
+
+        return redirect()->route('admin.users.index')->with('success', 'Usuario creado exitosamente.');
     }
 
     /**
