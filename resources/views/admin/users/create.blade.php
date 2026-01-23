@@ -1,19 +1,18 @@
-<x-admin-layout title="Usuarios | MediAppoint"
-:breadcrumbs="[
+<x-admin-layout title="Usuarios | MediAppoint" :breadcrumbs="[
     [
         'name' => 'Dashboard',
         'href' => route('admin.dashboard'),
     ],
     [
         'name' => 'Roles',
-        'href' => route('admin.users.index'),
+        'href' => route('admin.roles.index'),
     ],
     [
         'name' => 'Nuevo',
     ],
 ]">
 
-<x-wire-card>
+    <x-wire-card>
         <form action="{{ route('admin.roles.store') }}" method="POST">
             @csrf
             <div class="space-y-4">

@@ -1,4 +1,4 @@
-<x-admin-layout title="Roles | MediAppoint"
+<x-admin-layout title="Usuarios | MediAppoint"
 :breadcrumbs="[
     [
         'name' => 'Dashboard',
