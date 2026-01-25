@@ -89,27 +89,31 @@ class UserController extends Controller
             'id_number' => 'required|string|min:5|max:20|regex:/^[A-Za-z0-9\-]+$/|unique:users, id_number,' . $user->id,
             'phone' => 'required|digits_between:7,15',
             'address' => 'required|string|min:3|max:255',
-            'role_id' => 'required|exists:roles,id'
+            'role_id' => 'nullable|exists:roles,id'
         ]);
 
         $user->update($data);
 
         //Si el usuario quiere editar su contraseña, que lo guarde
         if ($request->filled('password')) {
-            $user->password = bycrypt($request['password']);
+            $user->password = bcrypt($request->password);
             $user->save();
         }
 
+        if (isset($data['role_id'])) {
         $user->roles()->sync($data['role_id']);
+        }
 
-        session()->flash('swal', [
-            'icon'  => 'success',
-            'title' => 'Usuario actualizado correctamente',
-            'text'  => 'Los datos del usuario han sido actualizados exitosamente'
-        ]);
-        
-        return redirect()->route('admin.users.edit', $user->id)->with('success', 'Usuario actualizado exitosamente.');
-    }
+        if ($request->expectsJson()) {
+        return response()->json([
+        'message' => 'Usuario actualizado correctamente'
+        ], 200);
+        }
+
+        return redirect()
+        ->route('admin.users.edit', $user->id)
+        ->with('success', 'Usuario actualizado exitosamente.');
+        }
 
     /**
      * Remove the specified resource from storage.
