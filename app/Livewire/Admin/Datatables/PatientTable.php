@@ -4,18 +4,17 @@ namespace App\Livewire\Admin\Datatables;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use App\Models\Patient;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\User;
 
-class UserTable extends DataTableComponent
+class PatientTable extends DataTableComponent
 {
-    //Se comenta para personalizar la consulta
-    //protected $model = User::class;
+    //protected model = class;
 
     //Define el modelo y su consulta
     public function builder(): Builder
     {
-        return User::query()->with('roles');
+        return Patient::query()->with('user');
     }
 
     public function configure(): void
@@ -28,22 +27,18 @@ class UserTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Nombre", "name")
+            Column::make("Nombre", "user.name")
                 ->sortable(),
-            Column::make("Email", "email")
+            Column::make("Email", "user.email")
                 ->sortable(),
-            Column::make("Número de id", "id_number")
+            Column::make("Número de id", "user.id_number")
                 ->sortable(),
-            Column::make("Teléfono", "phone")
+            Column::make("Teléfono", "user.phone")
                 ->sortable(),
-            Column::make("Rol", "roles")
-                ->label(function($row) {
-                    return $row->roles->first()?->name ?? 'Sin Rol';
-                }),
             Column::make("Acciones")
                 ->label(function ($row) {
-                    return view('admin.users.actions',
-                        ['user' => $row]);
+                    return view('admin.patients.actions',
+                        ['patient' => $row]);
                 }),
         ];
     }
