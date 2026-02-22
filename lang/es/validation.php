@@ -291,5 +291,8 @@ return [
         'emergency_contact_name' => 'nombre del contacto de emergencia',
         'emergency_contact_phone' => 'teléfono del contacto de emergencia',
         'emergency_contact_relationship' => 'relación del contacto',
+        'biography'                 => 'biografía',
+        'medical_license_number'    => 'número de licencia médica',
+        'speciality_id'            => 'especialidad',
     ],
 ];
