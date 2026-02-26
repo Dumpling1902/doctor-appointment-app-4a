@@ -15,9 +15,12 @@
     $initialTab = 'datos-personales';
 
     //Si hay errores, buscamos en qué grupo están para abrir esa pestaña automáticamente
+    //Recorre cada pestaña
     foreach ($errorGroups as $tabName => $fields) {
+        //Ve si existe al menos un error en los campos de esa pestaña
         if ($errors->hasAny($fields)) {
             $initialTab = $tabName;
+            //Detener el bucle inmediatamente
             break; //Salimos del bucle
         }
     }
@@ -68,7 +71,7 @@
             <div x-data="{ tab: '{{ $initialTab }}' }">
 
                 {{-- Menú de pestañas --}}
-                <div class="border-b border-gray-200">
+                <div class="border-b border-gray-200"> 
                     <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
 
                         {{-- Tab 1: Datos Personales --}}
@@ -168,7 +171,7 @@
                     </ul>
                 </div>
                 {{-- Contenido de los tabs --}}
-                <div class="px-4 mt-4">
+                {{-- <div class="px-4 mt-4"> --}}
 
                     {{-- Contenido de Tab 1: Datos personales --}}
                     <div x-show="tab === 'datos-personales'">
@@ -272,7 +275,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            {{-- </div> --}}
         </x-wire-card>
     </form>
 
