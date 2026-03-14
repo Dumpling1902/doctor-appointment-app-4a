@@ -1,0 +1,27 @@
+
+   INFO  Running migrations.  
+
+  2025_10_13_162333_create_permission_tables  2.20ms DONE
+  2026_02_05_152241_create_blood_types_table  6.37ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'blood_types' already exists (Connection: mysql, SQL: create table `blood_types` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:824
+    820Ôûò                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    821Ôûò                 );
+    822Ôûò             }
+    823Ôûò 
+  Ô×£ 824Ôûò             throw new QueryException(
+    825Ôûò                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826Ôûò             );
+    827Ôûò         }
+    828Ôûò     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:570
+      PDOException::("SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'blood_types' already exists")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:570
+      PDOStatement::execute()
+

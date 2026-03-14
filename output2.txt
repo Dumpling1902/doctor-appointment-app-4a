@@ -1,0 +1,27 @@
+
+   INFO  Running migrations.  
+
+  2025_09_08_222418_create_personal_access_tokens_table  1.97ms DONE
+  2025_10_13_162333_create_permission_tables  11.29ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'permissions' already exists (Connection: mysql, SQL: create table `permissions` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(255) not null, `guard_name` varchar(255) not null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:824
+    820Ôûò                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    821Ôûò                 );
+    822Ôûò             }
+    823Ôûò 
+  Ô×£ 824Ôûò             throw new QueryException(
+    825Ôûò                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826Ôûò             );
+    827Ôûò         }
+    828Ôûò     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:570
+      PDOException::("SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'permissions' already exists")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:570
+      PDOStatement::execute()
+
