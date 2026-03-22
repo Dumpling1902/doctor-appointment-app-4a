@@ -70,7 +70,7 @@ class AppointmentsCreate extends Component
     {
         $this->validate();
 
-        Appointment::create([
+        $appointment = Appointment::create([
             'patient_id' => $this->patient_id,
             'doctor_id' => $this->doctor_id,
             'date' => $this->date,
@@ -81,10 +81,24 @@ class AppointmentsCreate extends Component
             'duration' => 15, // default
         ]);
 
+        // Load relationships to access the emails
+        $appointment->load(['patient.user', 'doctor.user']);
+
+        // Send Email to patient with CC to doctor
+        if ($appointment->patient && $appointment->patient->user && $appointment->patient->user->email) {
+            $mail = \Illuminate\Support\Facades\Mail::to($appointment->patient->user->email);
+            
+            if ($appointment->doctor && $appointment->doctor->user && $appointment->doctor->user->email) {
+                $mail->cc($appointment->doctor->user->email);
+            }
+            
+            $mail->send(new \App\Mail\CitaMail($appointment));
+        }
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Cita Creada',
-            'text' => 'La cita ha sido registrada correctamente.',
+            'text' => 'La cita ha sido registrada correctamente y se ha enviado un correo confirmatorio.',
         ]);
 
         return redirect()->route('admin.appointments.index');
